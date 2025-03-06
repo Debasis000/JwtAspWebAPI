@@ -29,7 +29,7 @@ builder.Services
 // config identity 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.Password.RequiredLength = 8;
+    options.Password.RequiredLength = 3;
     options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;  
     options.Password.RequireUppercase = false;  
@@ -48,19 +48,19 @@ builder.Services
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
     })
-    .AddJwtBearer(options =>
-    {
-        options.SaveToken = true;
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-            ValidAudience = builder.Configuration["JWT:ValidAudience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-        };
-    });
+     .AddJwtBearer(options =>
+     {
+         options.SaveToken = true;
+         options.RequireHttpsMetadata = false;
+         options.TokenValidationParameters = new TokenValidationParameters()
+         {
+             ValidateIssuer = true,
+             ValidateAudience = true,
+             ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+             ValidAudience = builder.Configuration["JWT:ValidAudience"],
+             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+         };
+     });
 
 
 
